@@ -20,15 +20,18 @@ Requires no reading skills
 ❓ Interactive questions
 🔁 Repetition for better understanding
 👨‍👩‍👧 Designed for illiterate users
+
 📚 Topics Covered
-OTP Scams
-Fake Calls
-Password Safety
-UPI Fraud
+1)OTP Scams
+2)Fake Calls
+3)Password Safety
+4)UPI Fraud
+
 🛠️ Tech Stack
-Python
-Streamlit
-pyttsx3 (Text-to-Speech)
+1)Python
+2)Streamlit
+3)pyttsx3 (Text-to-Speech)
+
 📁 Project Structure
 cyber-ai-teacher/
 │── app.py
@@ -38,6 +41,7 @@ cyber-ai-teacher/
 │     └── voice.py
 │── data/
 │     └── lessons.json
+
 🚀 How to Run
 1️⃣ Clone Repository
 git clone https://github.com/your-username/cyber-ai-teacher.git
