@@ -1,0 +1,101 @@
+text,label
+Verify your account by clicking this link,phishing
+अज्ञात लिंक पर क्लिक करें,phishing
+ಖಾತೆ ಪರಿಶೀಲಿಸಲು ಲಿಂಕ್ ಕ್ಲಿಕ್ ಮಾಡಿ,phishing
+ಖಾತೆ ಪರಿಶೀಲಿಸಲು ಲಿಂಕ್ ಕ್ಲಿಕ್ ಮಾಡಿ,phishing
+अज्ञात लिंक पर क्लिक करें,phishing
+Verify your account by clicking this link,phishing
+Click this suspicious link to claim prize,phishing
+Click this suspicious link to claim prize,phishing
+अज्ञात लिंक पर क्लिक करें,phishing
+ಖಾತೆ ಪರಿಶೀಲಿಸಲು ಲಿಂಕ್ ಕ್ಲಿಕ್ ಮಾಡಿ,phishing
+Install this app to get reward,malware
+ಈ ಅಪ್ಲಿಕೇಶನ್ ಸ್ಥಾಪಿಸಿ,malware
+Download software for free antivirus,malware
+ಈ ಅಪ್ಲಿಕೇಶನ್ ಸ್ಥಾಪಿಸಿ,malware
+Install this app to get reward,malware
+ಈ ಅಪ್ಲಿಕೇಶನ್ ಸ್ಥಾಪಿಸಿ,malware
+इस ऐप को इंस्टॉल करें,malware
+Download software for free antivirus,malware
+Download software for free antivirus,malware
+Install this app to get reward,malware
+ನಿಮ್ಮ ಫೈಲ್‌ಗಳು ಲಾಕ್ ಆಗಿವೆ,ransomware
+"Your files are locked, pay to unlock",ransomware
+Files encrypted! Pay ransom,ransomware
+ನಿಮ್ಮ ಫೈಲ್‌ಗಳು ಲಾಕ್ ಆಗಿವೆ,ransomware
+ನಿಮ್ಮ ಫೈಲ್‌ಗಳು ಲಾಕ್ ಆಗಿವೆ,ransomware
+Files encrypted! Pay ransom,ransomware
+ನಿಮ್ಮ ಫೈಲ್‌ಗಳು ಲಾಕ್ ಆಗಿವೆ,ransomware
+Files encrypted! Pay ransom,ransomware
+"Your files are locked, pay to unlock",ransomware
+"Your files are locked, pay to unlock",ransomware
+Call asking OTP for verification,social_engineering
+बैंक कर्मचारी बनकर कॉल आया,social_engineering
+बैंक कर्मचारी बनकर कॉल आया,social_engineering
+Someone pretending to be bank staff,social_engineering
+Someone pretending to be bank staff,social_engineering
+बैंक कर्मचारी बनकर कॉल आया,social_engineering
+Someone pretending to be bank staff,social_engineering
+बैंक कर्मचारी बनकर कॉल आया,social_engineering
+Call asking OTP for verification,social_engineering
+Call asking OTP for verification,social_engineering
+मैंने पासवर्ड साझा किया,password_attack
+मैंने पासवर्ड साझा किया,password_attack
+I shared my password,password_attack
+I shared my password,password_attack
+I shared my password,password_attack
+Brute force attack detected,password_attack
+I shared my password,password_attack
+I shared my password,password_attack
+Brute force attack detected,password_attack
+I shared my password,password_attack
+OTP requested for account login,otp_fraud
+ಯಾರೋ ನನ್ನ OTP ಕೇಳುತ್ತಿದ್ದಾರೆ,otp_fraud
+किसी ने मेरा OTP मांगा,otp_fraud
+OTP requested for account login,otp_fraud
+Someone asked my OTP,otp_fraud
+OTP requested for account login,otp_fraud
+OTP requested for account login,otp_fraud
+किसी ने मेरा OTP मांगा,otp_fraud
+किसी ने मेरा OTP मांगा,otp_fraud
+OTP requested for account login,otp_fraud
+आपने लॉटरी जीत ली,lottery_scam
+आपने लॉटरी जीत ली,lottery_scam
+Claim your prize by clicking here,lottery_scam
+आपने लॉटरी जीत ली,lottery_scam
+ನೀವು ಲಾಟರಿ ಗೆದ್ದಿದ್ದೀರಿ,lottery_scam
+Claim your prize by clicking here,lottery_scam
+You won a lottery you never entered,lottery_scam
+आपने लॉटरी जीत ली,lottery_scam
+Claim your prize by clicking here,lottery_scam
+आपने लॉटरी जीत ली,lottery_scam
+ಈ ನಕಲಿ ಅಪ್ಲಿಕೇಶನ್ ಸ್ಥಾಪಿಸಿ,fake_app
+यह नकली ऐप इंस्टॉल करें,fake_app
+यह नकली ऐप इंस्टॉल करें,fake_app
+Install this fake banking app,fake_app
+यह नकली ऐप इंस्टॉल करें,fake_app
+Install this fake banking app,fake_app
+ಈ ನಕಲಿ ಅಪ್ಲಿಕೇಶನ್ ಸ್ಥಾಪಿಸಿ,fake_app
+यह नकली ऐप इंस्टॉल करें,fake_app
+App promises reward but is malware,fake_app
+Install this fake banking app,fake_app
+UPI fraud attempt detected,financial_fraud
+अज्ञात स्रोत से बैंक ट्रांसफर,financial_fraud
+ಅಪರಿಚಿತ ಮೂಲದಿಂದ ಬ್ಯಾಂಕ್ ವರ್ಗಾವಣೆ,financial_fraud
+अज्ञात स्रोत से बैंक ट्रांसफर,financial_fraud
+Bank transfer requested from unknown,financial_fraud
+अज्ञात स्रोत से बैंक ट्रांसफर,financial_fraud
+ಅಪರಿಚಿತ ಮೂಲದಿಂದ ಬ್ಯಾಂಕ್ ವರ್ಗಾವಣೆ,financial_fraud
+ಅಪರಿಚಿತ ಮೂಲದಿಂದ ಬ್ಯಾಂಕ್ ವರ್ಗಾವಣೆ,financial_fraud
+Bank transfer requested from unknown,financial_fraud
+ಅಪರಿಚಿತ ಮೂಲದಿಂದ ಬ್ಯಾಂಕ್ ವರ್ಗಾವಣೆ,financial_fraud
+ಅಪ್ಲಿಕೇಶನ್ ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡುತ್ತಿದೆ,spyware_adware
+ऐप आपका डेटा ट्रैक कर रहा है,spyware_adware
+Ads keep popping and slowing device,spyware_adware
+ಅಪ್ಲಿಕೇಶನ್ ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡುತ್ತಿದೆ,spyware_adware
+Ads keep popping and slowing device,spyware_adware
+Ads keep popping and slowing device,spyware_adware
+ಅಪ್ಲಿಕೇಶನ್ ನಿಮ್ಮ ಡೇಟಾವನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡುತ್ತಿದೆ,spyware_adware
+App is secretly tracking your device,spyware_adware
+Ads keep popping and slowing device,spyware_adware
+ऐप आपका डेटा ट्रैक कर रहा है,spyware_adware
