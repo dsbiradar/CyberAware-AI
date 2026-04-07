@@ -4,140 +4,145 @@ import io
 from gtts import gTTS
 from PIL import Image
 import os
-from utils import scenarios
 
-# ---------- BASE DIRECTORY (VERY IMPORTANT FIX) ----------
+# ---------- BASE PATH ----------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# ---------- Function to display centered images ----------
-def display_centered_image(image_name, width=250):
-    try:
-        img_path = os.path.join(BASE_DIR, image_name)
-
-        if os.path.exists(img_path):
-            img = Image.open(img_path)
-            col1, col2, col3 = st.columns([1,2,1])
-            with col2:
-                st.image(img, width=width)
-        else:
-            st.warning(f"Image not found: {img_path}")
-    except Exception as e:
-        st.warning(f"Error loading image: {e}")
-
-# ---------- Audio function ----------
-def speak_streamlit(text, lang_code="en"):
-    try:
-        tts = gTTS(text=text, lang=lang_code)
-        mp3_fp = io.BytesIO()
-        tts.write_to_fp(mp3_fp)
-        mp3_fp.seek(0)
-        st.audio(mp3_fp, format="audio/mp3")
-    except Exception as e:
-        st.warning(f"Audio error: {e}")
-
-# ---------- Load model ----------
-model_loaded = False
-try:
-    model_path = os.path.join(BASE_DIR, "cyber_model.pkl")   # ✅ FIXED
-    model, vectorizer = joblib.load(model_path)              # ✅ FIXED
-    model_loaded = True
-except Exception as e:
-    st.error(f"⚠️ Model not found or error loading: {e}")
-
-# ---------- Prediction ----------
-def predict_category(text):
-    if not model_loaded:
-        speak_streamlit("Model not loaded. Cannot predict.", lang_code="en")
-        return "unknown"
-    
-    text_vec = vectorizer.transform([text])   # ✅ FIXED
-    return model.predict(text_vec)[0]
-
-# ---------- Feedback dictionary ----------
-feedback_dict = {
-    "phishing":{"English":"⚠️ Phishing! Avoid links","Hindi":"⚠️ फ़िशिंग! लिंक से बचें","Kannada":"⚠️ ಫಿಶಿಂಗ್! ಲಿಂಕ್ ತಪ್ಪಿಸಿ"},
-    "malware":{"English":"⚠️ Malware detected! Do not install","Hindi":"⚠️ मैलवेयर! इंस्टॉल न करें","Kannada":"⚠️ ಮಾಲ್ವೇರ್ ಕಂಡುಬಂದಿದೆ! ಸ್ಥಾಪಿಸಬೇಡಿ"},
-    "ransomware":{"English":"⚠️ Ransomware! Do not pay","Hindi":"⚠️ रैनसमवेयर! भुगतान न करें","Kannada":"⚠️ ರ್ಯಾನ್ಸಮ್‌ವೇರ್! ಪಾವತಿ ಮಾಡಬೇಡಿ"},
-    "social_engineering":{"English":"⚠️ Social Engineering! Be alert","Hindi":"⚠️ सोशल इंजिनियरिंग! सतर्क रहें","Kannada":"⚠️ ಸಾಮಾಜಿಕ ಎಂಜಿನಿಯರಿಂಗ್! ಎಚ್ಚರಿಕೆ ವಹಿಸಿ"},
-    "password_attack":{"English":"⚠️ Password attack! Keep strong","Hindi":"⚠️ पासवर्ड हमला! मजबूत रखें","Kannada":"⚠️ ಪಾಸ್‌ವರ್ಡ್ ದಾಳಿ! ಬಲವಾಗಿ ಇಡಿ"},
-    "otp_fraud":{"English":"⚠️ OTP Fraud! Never share","Hindi":"⚠️ OTP धोखाधड़ी! साझा न करें","Kannada":"⚠️ OTP ಮೋಸ! ಹಂಚಬೇಡಿ"},
-    "lottery_scam":{"English":"⚠️ Lottery Scam! Ignore","Hindi":"⚠️ लॉटरी धोखाधड़ी! अनदेखा करें","Kannada":"⚠️ ಲಾಟರಿ ಮೋಸ! ನಿರ್ಲಕ್ಷ್ಯ ಮಾಡಿ"},
-    "fake_app":{"English":"⚠️ Fake App! Do not install","Hindi":"⚠️ नकली ऐप! इंस्टॉल न करें","Kannada":"⚠️ ನಕಲಿ ಅಪ್ಲಿಕೇಶನ್! ಸ್ಥಾಪಿಸಬೇಡಿ"},
-    "financial_fraud":{"English":"⚠️ Financial Fraud! Be alert","Hindi":"⚠️ वित्तीय धोखाधड़ी! सतर्क रहें","Kannada":"⚠️ ಹಣಕಾಸು ಮೋಸ! ಎಚ್ಚರಿಕೆ ವಹಿಸಿ"},
-    "spyware_adware":{"English":"⚠️ Spyware/Adware! Be careful","Hindi":"⚠️ स्पाईवेयर/एडवेयर! सावधान रहें","Kannada":"⚠️ ಸ್ಪೈವೇರ್/ಆಡ್ವೇರ್! ಎಚ್ಚರಿಕೆ ವಹಿಸಿ"}
+# ---------- UI TEXT (ALL LANGUAGES) ----------
+ui_text = {
+    "English": {
+        "select_lang": "🌐 Select Language",
+        "nav": "📌 Navigation",
+        "welcome": "👋 Welcome to AI Cyber Safety Teacher",
+        "welcome_msg": "Learn how to stay safe online.",
+        "attack_title": "📌 Cyber Attack Types",
+        "demo_title": "🔍 Demo / Manual Message Analysis",
+        "input": "📩 Enter message / call content",
+        "analyze": "🔍 Analyze",
+        "clear": "🧹 Clear",
+        "empty": "⚠️ Please enter some text",
+        "safe": "Be cautious"
+    },
+    "Hindi": {
+        "select_lang": "🌐 भाषा चुनें",
+        "nav": "📌 नेविगेशन",
+        "welcome": "👋 AI साइबर सुरक्षा शिक्षक में आपका स्वागत है",
+        "welcome_msg": "ऑनलाइन सुरक्षित रहना सीखें।",
+        "attack_title": "📌 साइबर हमले के प्रकार",
+        "demo_title": "🔍 संदेश विश्लेषण",
+        "input": "📩 संदेश / कॉल लिखें",
+        "analyze": "🔍 विश्लेषण करें",
+        "clear": "🧹 साफ करें",
+        "empty": "⚠️ कृपया कुछ लिखें",
+        "safe": "सतर्क रहें"
+    },
+    "Kannada": {
+        "select_lang": "🌐 ಭಾಷೆ ಆಯ್ಕೆ ಮಾಡಿ",
+        "nav": "📌 ನ್ಯಾವಿಗೇಶನ್",
+        "welcome": "👋 AI ಸೈಬರ್ ಸುರಕ್ಷತಾ ಶಿಕ್ಷಕರಿಗೆ ಸ್ವಾಗತ",
+        "welcome_msg": "ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ ಸುರಕ್ಷಿತವಾಗಿರಲು ಕಲಿಯಿರಿ.",
+        "attack_title": "📌 ಸೈಬರ್ ದಾಳಿ ಪ್ರಕಾರಗಳು",
+        "demo_title": "🔍 ಸಂದೇಶ ವಿಶ್ಲೇಷಣೆ",
+        "input": "📩 ಸಂದೇಶ / ಕರೆ ಬರೆಯಿರಿ",
+        "analyze": "🔍 ವಿಶ್ಲೇಷಿಸಿ",
+        "clear": "🧹 ತೆರವುಗೊಳಿಸಿ",
+        "empty": "⚠️ ದಯವಿಟ್ಟು ಕೆಲವು ಪಠ್ಯ ನಮೂದಿಸಿ",
+        "safe": "ಎಚ್ಚರಿಕೆ ವಹಿಸಿ"
+    }
 }
 
-# ---------- Language selection ----------
+# ---------- IMAGE FUNCTION ----------
+def display_centered_image(image_name, width=250):
+    path = os.path.join(BASE_DIR, image_name)
+    if os.path.exists(path):
+        img = Image.open(path)
+        col1, col2, col3 = st.columns([1,2,1])
+        with col2:
+            st.image(img, width=width)
+
+# ---------- AUDIO ----------
+def speak(text, lang_code):
+    tts = gTTS(text=text, lang=lang_code)
+    fp = io.BytesIO()
+    tts.write_to_fp(fp)
+    fp.seek(0)
+    st.audio(fp)
+
+# ---------- LOAD MODEL ----------
+try:
+    model, vectorizer = joblib.load(os.path.join(BASE_DIR, "cyber_model.pkl"))
+    model_loaded = True
+except:
+    model_loaded = False
+
+def predict(text):
+    if not model_loaded:
+        return "unknown"
+    return model.predict(vectorizer.transform([text]))[0]
+
+# ---------- FEEDBACK ----------
+feedback = {
+    "phishing":{"English":"⚠️ Phishing! Avoid links","Hindi":"⚠️ फ़िशिंग! लिंक से बचें","Kannada":"⚠️ ಫಿಶಿಂಗ್! ಲಿಂಕ್ ತಪ್ಪಿಸಿ"},
+    "otp_fraud":{"English":"⚠️ OTP Fraud! Never share","Hindi":"⚠️ OTP धोखाधड़ी! साझा न करें","Kannada":"⚠️ OTP ಮೋಸ! ಹಂಚಬೇಡಿ"},
+}
+
+# ---------- LANGUAGE ----------
 lang = st.selectbox("🌐 Select Language", ["English","Hindi","Kannada"])
-lang_map_code = {"English":"en","Hindi":"hi","Kannada":"kn"}
-lang_code = lang_map_code[lang]
+t = ui_text[lang]
+lang_code = {"English":"en","Hindi":"hi","Kannada":"kn"}[lang]
 
-# ---------- Navigation ----------
-st.sidebar.header("📌 Navigation")
-page = st.sidebar.radio("Go to:", ["Welcome","Cyber Attack Details","Demo / Analyze"])
+# ---------- NAV ----------
+st.sidebar.header(t["nav"])
+page = st.sidebar.radio("", ["Welcome","Cyber Attack Details","Demo"])
 
-# ---------- Welcome Page ----------
+# ---------- WELCOME ----------
 if page=="Welcome":
-    display_centered_image("welcome_image.jpeg", width=350)
-    st.header("👋 Welcome to AI Cyber Safety Teacher")
+    display_centered_image("welcome_image.jpeg", 350)
+    st.header(t["welcome"])
+    st.write(t["welcome_msg"])
+    speak(t["welcome_msg"], lang_code)
 
-    welcome_msg = {
-        "English":"Welcome to AI Cyber Safety Teacher! Learn how to stay safe online.",
-        "Hindi":"AI साइबर सुरक्षा शिक्षक में आपका स्वागत है! ऑनलाइन सुरक्षित रहें।",
-        "Kannada":"AI ಸೈಬರ್ ಸೆಕ್ಯುರಿಟಿ ಟೀಚರ್‌ಗೆ ಸ್ವಾಗತ! ಆನ್‌ಲೈನ್ ಸುರಕ್ಷಿತವಾಗಿ ಇರಲು ಕಲಿಯಿರಿ."
-    }
-
-    st.write(welcome_msg[lang])
-    speak_streamlit(welcome_msg[lang], lang_code=lang_code)
-
-# ---------- Cyber Attack Details ----------
+# ---------- ATTACK DETAILS ----------
 elif page=="Cyber Attack Details":
-    display_centered_image("ai_teacher_logo.jpeg", width=250)
-    st.header("📌 Cyber Attack Types")
+    display_centered_image("ai_teacher_logo.jpeg", 250)
+    st.header(t["attack_title"])
 
-    attack_details = {
-        "phishing": "Fake links to steal info",
-        "malware": "Harmful software",
-        "ransomware": "Locks files for money",
-        "social_engineering": "Tricks users",
-        "password_attack": "Password stealing",
-        "otp_fraud": "OTP scams",
-        "lottery_scam": "Fake lottery",
-        "fake_app": "Fake apps",
-        "financial_fraud": "Money fraud",
-        "spyware_adware": "Tracking apps"
+    attacks = {
+        "phishing":{"English":"Fake links","Hindi":"नकली लिंक","Kannada":"ನಕಲಿ ಲಿಂಕ್"},
+        "otp_fraud":{"English":"OTP scams","Hindi":"OTP धोखाधड़ी","Kannada":"OTP ಮೋಸ"}
     }
 
-    for key, desc in attack_details.items():
-        st.write(f"• {key.replace('_',' ').title()}: {desc}")
-        speak_streamlit(f"{key.replace('_',' ').title()}: {desc}", lang_code=lang_code)
+    for k,v in attacks.items():
+        st.write(f"• {k}: {v[lang]}")
+        speak(v[lang], lang_code)
 
-# ---------- Demo ----------
-elif page=="Demo / Analyze":
-    display_centered_image("ai_teacher_logo.jpeg", width=250)
-    st.header("🔍 Demo / Manual Message Analysis")
+# ---------- DEMO ----------
+elif page=="Demo":
+    display_centered_image("ai_teacher_logo.jpeg", 250)
+    st.header(t["demo_title"])
 
-    user_input = st.text_area("📩 Enter message / call content", height=150)
+    user_input = st.text_area(t["input"])
 
     col1,col2 = st.columns(2)
-    with col1: check = st.button("🔍 Analyze")
-    with col2: clear = st.button("🧹 Clear")
+    with col1:
+        check = st.button(t["analyze"])
+    with col2:
+        clear = st.button(t["clear"])
 
     if clear:
         st.experimental_rerun()
 
     if check:
-        if user_input.strip() == "":
-            st.warning("⚠️ Please enter some text")
-            speak_streamlit("Please enter some text.", lang_code=lang_code)
+        if user_input.strip()=="":
+            st.warning(t["empty"])
+            speak(t["empty"], lang_code)
         else:
-            category = predict_category(user_input)
-
-            feedback = feedback_dict.get(category, {
-                "English":"Be cautious",
-                "Hindi":"सतर्क रहें",
-                "Kannada":"ಎಚ್ಚರಿಕೆ ವಹಿಸಿ"
+            cat = predict(user_input)
+            msg = feedback.get(cat, {
+                "English":t["safe"],
+                "Hindi":t["safe"],
+                "Kannada":t["safe"]
             })[lang]
 
-            st.error(feedback)
-            speak_streamlit(feedback, lang_code=lang_code)
+            st.error(msg)
+            speak(msg, lang_code)
