@@ -6,16 +6,21 @@ from PIL import Image
 import os
 from utils import scenarios
 
+# ---------- BASE DIRECTORY (VERY IMPORTANT FIX) ----------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # ---------- Function to display centered images ----------
-def display_centered_image(image_path, width=250):
+def display_centered_image(image_name, width=250):
     try:
-        if os.path.exists(image_path):
-            img = Image.open(image_path)
+        img_path = os.path.join(BASE_DIR, image_name)
+
+        if os.path.exists(img_path):
+            img = Image.open(img_path)
             col1, col2, col3 = st.columns([1,2,1])
             with col2:
                 st.image(img, width=width)
         else:
-            st.warning(f"Image not found: {image_path}")
+            st.warning(f"Image not found: {img_path}")
     except Exception as e:
         st.warning(f"Error loading image: {e}")
 
@@ -31,11 +36,10 @@ def speak_streamlit(text, lang_code="en"):
         st.warning(f"Audio error: {e}")
 
 # ---------- Load model ----------
-model_path = "cyber_model.pkl"
 model_loaded = False
-
 try:
-    model, vectorizer = joblib.load(model_path)   # ✅ FIXED
+    model_path = os.path.join(BASE_DIR, "cyber_model.pkl")   # ✅ FIXED
+    model, vectorizer = joblib.load(model_path)              # ✅ FIXED
     model_loaded = True
 except Exception as e:
     st.error(f"⚠️ Model not found or error loading: {e}")
@@ -128,6 +132,7 @@ elif page=="Demo / Analyze":
             speak_streamlit("Please enter some text.", lang_code=lang_code)
         else:
             category = predict_category(user_input)
+
             feedback = feedback_dict.get(category, {
                 "English":"Be cautious",
                 "Hindi":"सतर्क रहें",
